@@ -1,0 +1,51 @@
+<div class="search-bar" [class.expanded]="expanded()">
+  @if (expanded()) {
+    <button type="button" class="back-btn" aria-label="Назад" (click)="close()">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+        <path
+          d="M15 18l-6-6 6-6"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  }
+
+  <form class="search-form" (submit)="onSubmit($event)">
+    <button type="button" class="search-icon-btn" aria-label="Поиск" (click)="toggleExpanded()">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+        <path
+          d="M11 4a7 7 0 1 0 4.9 12.02l4.54 4.54a1 1 0 0 0 1.41-1.41l-4.54-4.54A7 7 0 0 0 11 4Zm-5 7a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+
+    <input
+      #queryInput
+      type="text"
+      class="query-input"
+      placeholder="Поиск"
+      [value]="query()"
+      (focus)="setExpanded(true)"
+      (input)="onQueryInput($event)"
+    />
+
+    @if (expanded()) {
+      <button type="submit" class="find-btn">НАЙТИ</button>
+    }
+  </form>
+
+  <div class="dropdown" [class.open]="expanded()">
+    @if (expanded()) {
+      <app-search-filters
+        [filters]="filters()"
+        [showHistory]="showHistory()"
+        (filtersChange)="onFiltersChange($event)"
+        (historyItemSelected)="onHistoryItemSelected($event)"
+      />
+    }
+  </div>
+</div>

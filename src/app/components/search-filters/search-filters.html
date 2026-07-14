@@ -1,0 +1,73 @@
+<div class="search-filters">
+  @if (showHistory()) {
+    <div class="history-column">
+      <span class="column-label">История</span>
+      <ul class="history-list">
+        @for (item of history(); track item) {
+          <li>
+            <button type="button" class="history-item" (click)="selectHistoryItem(item)">
+              {{ item }}
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+  <div class="filters-column">
+    <label class="field">
+      <span class="field-label"> Автор </span>
+      <span class="field-input-wrap">
+        <input
+          type="text"
+          class="field-input"
+          placeholder="Имя или должность"
+          [value]="filters().author"
+          (input)="onAuthorInput($event)"
+        />
+        <svg
+          class="field-icon"
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-3.33 0-8 1.67-8 5v1h16v-1c0-3.33-4.67-5-8-5Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </label>
+    <div class="checkbox-row">
+      @for (option of searchOptions; track option.key) {
+        <label class="checkbox">
+          <input
+            type="checkbox"
+            [checked]="filters()[option.key]"
+            (change)="onCheckboxChange(option.key, $event)"
+          />
+
+          <span>
+            {{ option.label }}
+          </span>
+        </label>
+      }
+    </div>
+    <span class="section-label"> Только </span>
+    <div class="checkbox-row">
+      @for (option of onlyOptions; track option.key) {
+        <label class="checkbox">
+          <input
+            type="checkbox"
+            [checked]="filters()[option.key]"
+            (change)="onCheckboxChange(option.key, $event)"
+          />
+          <span>
+            {{ option.label }}
+          </span>
+        </label>
+      }
+    </div>
+  </div>
+</div>

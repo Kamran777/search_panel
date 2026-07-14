@@ -1,0 +1,244 @@
+@use '../../../styles/variables' as v;
+
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &.expanded {
+    .query-input {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2.25rem;
+  padding-inline: 0.25rem;
+  border-radius: 1.25rem;
+  box-sizing: border-box;
+  transition:
+    border-radius 0.3s ease,
+    width 0.35s ease;
+}
+
+.search-icon-btn {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: v.$color-white;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: #f0f2f5;
+    color: v.$color-primary;
+  }
+}
+
+.query-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: v.$color-black;
+  padding: 0 0.5rem;
+  opacity: 0;
+  transition:
+    width 0.3s ease,
+    opacity 0.2s ease;
+
+  &::placeholder {
+    color: v.$color-muted;
+  }
+}
+
+.find-btn {
+  flex: 0 0 auto;
+  height: 1.85rem;
+  padding: 0 1rem;
+  margin-left: 0.35rem;
+  border: none;
+  border-radius: 1rem;
+  background: v.$color-yellow;
+  color: v.$color-black;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  animation: fade-in 0.25s ease;
+  transition: background 0.2s ease;
+  &:hover {
+    background: v.$color-yellow-hover;
+  }
+}
+
+.back-btn {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 3rem;
+  margin-right: 0.25rem;
+  border: none;
+  background: transparent;
+  color: v.$color-white;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  border-radius: 0.5rem;
+  box-shadow: v.$shadow-dropdown;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.3s ease;
+  pointer-events: none;
+  &.open {
+    max-height: 600px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-form {
+    width: 2.5rem;
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .search-bar.expanded {
+    .search-form {
+      width: 100%;
+      justify-content: flex-start;
+      padding-inline: 0.25rem;
+      background: v.$color-white;
+      border-radius: 0.375rem 0.375rem 0 0;
+    }
+
+    .dropdown {
+      top: 2.25rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .search-bar {
+    width: auto;
+
+    &.expanded {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      background: v.$color-background;
+      box-sizing: border-box;
+
+      .back-btn {
+        display: flex;
+        color: v.$color-black;
+        flex-shrink: 0;
+      }
+
+      .search-form {
+        width: 100%;
+        max-width: 704px;
+        height: 48px;
+        margin: 0 auto;
+        background: v.$color-white;
+        border-radius: 1.5rem;
+        box-shadow: v.$shadow-search;
+      }
+
+      .search-icon-btn {
+        display: none;
+      }
+
+      .query-input {
+        color: v.$color-black;
+        padding-left: 0.75rem;
+      }
+    }
+  }
+
+  .search-form {
+    width: 2rem;
+    justify-content: center;
+    padding-inline: 0;
+    background: transparent;
+    transition:
+      width 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .search-icon-btn {
+    color: v.$color-white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: v.$color-white;
+    }
+  }
+
+  .find-btn {
+    display: none;
+  }
+
+  .dropdown {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 0;
+    border-radius: 0;
+    background: v.$color-white;
+    box-shadow: none;
+
+    &.open {
+      max-height: calc(100dvh - 4rem);
+      overflow-y: auto;
+    }
+  }
+}

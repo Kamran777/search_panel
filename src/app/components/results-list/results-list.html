@@ -1,0 +1,21 @@
+<div class="results-list">
+  @if (results().length === 0) {
+    <div class="empty-state">Ничего не найдено. Попробуйте изменить запрос или фильтры.</div>
+  } @else {
+    @for (item of results(); track item.id) {
+      <article class="result-card">
+        <header class="result-header">
+          <h3 class="result-title">{{ item.title }}</h3>
+          <span class="result-date">{{ item.date }}</span>
+        </header>
+        <p class="result-author">{{ item.author }}</p>
+        <p class="result-snippet">{{ item.snippet }}</p>
+        <div class="result-tags">
+          @for (tag of item.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </article>
+    }
+  }
+</div>
