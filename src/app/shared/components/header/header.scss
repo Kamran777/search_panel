@@ -230,6 +230,10 @@
     display: none;
   }
 
+  .avatar {
+    display: none;
+  }
+
   .topbar-inner {
     gap: 0.5rem;
   }
@@ -251,8 +255,8 @@
     display: flex;
   }
 
-  .brand-name {
-    display: none;
+  .brand {
+    flex: 1;
   }
 
   .topbar-inner.search-active {
